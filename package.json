@@ -9,6 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@hsorby/vue3-katex": "^0.6.0-rc.7",
+    "@picocss/pico": "^2.0.6",
     "vue": "^3.4.29"
   },
   "devDependencies": {

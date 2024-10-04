@@ -1,47 +1,31 @@
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import TheWelcome from './components/TheWelcome.vue'
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="./assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-    </div>
-  </header>
-
-  <main>
-    <TheWelcome />
-  </main>
+  <h1>Valor futuro de anualidades</h1>
+  <form id="annuityForm">
+    <fieldset>
+      <label>
+        anualidad (<span v-katex="'a'"></span>):
+        <input type="number" step="any" id="annuity" name="annuity" value="1000"
+               placeholder="anualiadad, ejemplo: 1000"/>
+      </label>
+      <label>
+        % tasa de interés (<span v-katex="'r_i'"></span>):
+        <input type="number" step="any" id="interestRate" name="ri" value="10"
+               placeholder="tasa de interes, ejemplo 10"/>
+      </label>
+      <label>
+        número de periodos (<span v-katex="'n'"></span>):
+        <input type="number" step="any" id="periods" name="periods" value="5" placeholder="5"/>
+      </label>
+    </fieldset>
+    <input type="submit" value="calcular"/>
+  </form>
+  <p>
+  <div id="result"></div>
+  </p>
 </template>
 
 <style scoped>
-header {
-  line-height: 1.5;
-}
-
-.logo {
-  display: block;
-  margin: 0 auto 2rem;
-}
-
-@media (min-width: 1024px) {
-  header {
-    display: flex;
-    place-items: center;
-    padding-right: calc(var(--section-gap) / 2);
-  }
-
-  .logo {
-    margin: 0 2rem 0 0;
-  }
-
-  header .wrapper {
-    display: flex;
-    place-items: flex-start;
-    flex-wrap: wrap;
-  }
-}
 </style>
