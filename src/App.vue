@@ -1,29 +1,45 @@
 <script setup>
+import {computed, ref} from 'vue'
+
+const annuity = ref(1000);
+const interestRate = ref(10);
+const periods = ref(10);
+const currencyFormatter = Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
+
+function getFutureValue(annuity, interestRate, periods) {
+  return (annuity * (Math.pow((1 + interestRate), periods) - 1)) / interestRate;
+}
+
+const futureValue = computed(() => {
+  return getFutureValue(annuity.value, interestRate.value / 100, periods.value);
+})
 </script>
 
 <template>
   <h1>Valor futuro de anualidades</h1>
-  <form id="annuityForm">
+    <form>
     <fieldset>
       <label>
         anualidad (<span v-katex="'a'"></span>):
-        <input type="number" step="any" id="annuity" name="annuity" value="1000"
+        <input type="number" step="any" name="annuity" v-model.number="annuity"
                placeholder="anualiadad, ejemplo: 1000"/>
       </label>
       <label>
         % tasa de interés (<span v-katex="'r_i'"></span>):
-        <input type="number" step="any" id="interestRate" name="ri" value="10"
+        <input type="number" step="any" name="interestRate" v-model.number="interestRate"
                placeholder="tasa de interes, ejemplo 10"/>
       </label>
       <label>
         número de periodos (<span v-katex="'n'"></span>):
-        <input type="number" step="any" id="periods" name="periods" value="5" placeholder="5"/>
+        <input type="number" step="any" name="periods" v-model.number="periods" placeholder="5"/>
       </label>
     </fieldset>
-    <input type="submit" value="calcular"/>
   </form>
   <p>
-  <div id="result"></div>
+    El valor futuro <span v-katex="'F_v'"></span>, del aporte de anualidades <span v-katex="'a'"></span>
+    de valor {{ currencyFormatter.format(annuity) }}, a una tasa de interés <span v-katex="'r_i'"></span>
+    de {{ interestRate }}%, compuesta en {{ periods }} periodos será de
+    <span v-katex="'F_v = \\frac{a((1+r_i)^n-1)}{r_i}='"></span> {{ currencyFormatter.format(futureValue) }}
   </p>
 </template>
 
