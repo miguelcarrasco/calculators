@@ -1,6 +1,6 @@
 <script setup>
 import {computed, ref} from 'vue'
-import financial from './financial.js'
+import {getAnnuityFutureValue} from './utils/financial.js'
 
 const annuity = ref(1000);
 const interestRate = ref(10);
@@ -8,7 +8,7 @@ const periods = ref(10);
 const currencyFormatter = Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
 
 const futureValue = computed(() => {
-  return financial.getFutureValue(annuity.value, interestRate.value / 100, periods.value);
+  return getAnnuityFutureValue(annuity.value, interestRate.value / 100, periods.value);
 })
 </script>
 
