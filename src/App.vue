@@ -1,23 +1,20 @@
 <script setup>
 import {computed, ref} from 'vue'
+import financial from './financial.js'
 
 const annuity = ref(1000);
 const interestRate = ref(10);
 const periods = ref(10);
 const currencyFormatter = Intl.NumberFormat('en-US', {style: 'currency', currency: 'USD'});
 
-function getFutureValue(annuity, interestRate, periods) {
-  return (annuity * (Math.pow((1 + interestRate), periods) - 1)) / interestRate;
-}
-
 const futureValue = computed(() => {
-  return getFutureValue(annuity.value, interestRate.value / 100, periods.value);
+  return financial.getFutureValue(annuity.value, interestRate.value / 100, periods.value);
 })
 </script>
 
 <template>
   <h1>Valor futuro de anualidades</h1>
-    <form>
+  <form>
     <fieldset>
       <label>
         anualidad (<span v-katex="'a'"></span>):
