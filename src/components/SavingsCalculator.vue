@@ -1,10 +1,11 @@
 <script setup>
 import { computed, ref } from 'vue'
-import { getSavingsFutureValue } from '../utils/financial.js'
+import { DepositTiming, getSavingsFutureValue } from '../utils/financial.js'
 
 const initialBalance = ref(1000)
 const periodicDeposit = ref(100)
 const periodType = ref('monthly')
+const depositTiming = ref(DepositTiming.END_OF_PERIOD)
 const annualInterestRate = ref(10)
 const years = ref(10)
 
@@ -33,8 +34,23 @@ const periodOptions = [
   },
 ]
 
+const depositTimingOptions = [
+  {
+    label: 'Al final de cada período',
+    value: DepositTiming.END_OF_PERIOD,
+  },
+  {
+    label: 'Al inicio de cada período',
+    value: DepositTiming.BEGINNING_OF_PERIOD,
+  },
+]
+
 const selectedPeriod = computed(() => {
   return periodOptions.find((period) => period.value === periodType.value)
+})
+
+const selectedDepositTiming = computed(() => {
+  return depositTimingOptions.find((option) => option.value === depositTiming.value)
 })
 
 const paymentsPerYear = computed(() => {
@@ -48,6 +64,7 @@ const futureValue = computed(() => {
       annualInterestRate.value / 100,
       paymentsPerYear.value,
       years.value,
+      depositTiming.value,
   )
 })
 </script>
@@ -77,6 +94,19 @@ const futureValue = computed(() => {
             v-model.number="periodicDeposit"
             placeholder="depósito periódico, ejemplo: 100"
         />
+      </label>
+
+      <label>
+        momento del depósito:
+        <select name="depositTiming" v-model="depositTiming">
+          <option
+              v-for="option in depositTimingOptions"
+              :key="option.value"
+              :value="option.value"
+          >
+            {{ option.label }}
+          </option>
+        </select>
       </label>
 
       <label>
@@ -120,11 +150,19 @@ const futureValue = computed(() => {
     El valor futuro del ahorro <span v-katex="'F_v'"></span>, con un balance inicial <span v-katex="'b_i'"></span> de
     {{ currencyFormatter.format(initialBalance) }}, depósitos periódicos <span v-katex="'d'"></span> de
     {{ currencyFormatter.format(periodicDeposit) }} de forma {{ selectedPeriod.label.toLowerCase() }},
+    realizados {{ selectedDepositTiming.label.toLowerCase() }},
     a una tasa de interés anual <span v-katex="'r'"></span> de {{ annualInterestRate }}% durante {{ years }} años,
     equivalente a {{ paymentsPerYear }} pagos al año y
     <span v-katex="'n='"></span> {{ years * paymentsPerYear }} períodos en total, con una tasa de interés por período
     <span v-katex="'r_p'"></span> de {{ annualInterestRate / paymentsPerYear }}%, será de
-    <span v-katex="'F_v = b_i(1+r_p)^n + \\frac{d((1+r_p)^n-1)}{r_p}='"></span>
+    <span
+        v-if="depositTiming === DepositTiming.BEGINNING_OF_PERIOD"
+        v-katex="'F_v = b_i(1+r_p)^n + \\frac{d((1+r_p)^n-1)}{r_p}(1+r_p)='"
+    ></span>
+    <span
+        v-else
+        v-katex="'F_v = b_i(1+r_p)^n + \\frac{d((1+r_p)^n-1)}{r_p}='"
+    ></span>
     <strong>{{ currencyFormatter.format(futureValue) }}</strong>.
   </p>
 </template>
