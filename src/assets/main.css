@@ -24,3 +24,22 @@
   margin-top: 1.5rem;
   font-size: 1.15rem;
 }
+
+.result-preview {
+  margin-top: 2rem;
+  padding: 1.25rem;
+  border: 1px solid var(--pico-primary-border);
+  border-radius: var(--pico-border-radius);
+  background: var(--pico-card-background-color);
+  text-align: center;
+}
+
+.result-preview p {
+  margin-bottom: 0.5rem;
+}
+
+.result-preview strong {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: 1.75rem;
+}

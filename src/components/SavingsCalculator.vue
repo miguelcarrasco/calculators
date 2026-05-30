@@ -154,8 +154,18 @@ const futureValue = computed(() => {
     </fieldset>
   </form>
 
+  <section class="result-preview">
+    <h2>Resultado</h2>
+
+    <p>
+      El valor futuro estimado del ahorro es:
+    </p>
+
+    <strong>{{ currencyFormatter.format(futureValue) }}</strong>
+  </section>
+
   <section class="calculation-summary">
-    <h2>Resultado del cálculo</h2>
+    <h2>Detalle del cálculo</h2>
 
     <p>
       El valor futuro del ahorro, representado como <span v-katex="'F_v'"></span>,
