@@ -10,6 +10,9 @@
       <li>
         <RouterLink to="/savings-calc/">Ahorro</RouterLink>
       </li>
+      <li>
+        <RouterLink to="/loan-calc/">Préstamo</RouterLink>
+      </li>
     </ul>
   </nav>
 

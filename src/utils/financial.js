@@ -91,3 +91,19 @@ export function getSavingsFutureValue(
 
     return initialBalanceFutureValue + periodicDepositsFutureValue;
 }
+
+/**
+ * Calculates the periodic payment required to amortize a loan.
+ *
+ * @param {number} loanCost - The principal or loan amount.
+ * @param {number} periodicInterestRate - The fixed interest rate per period as a decimal.
+ * @param {number} periods - The total number of payments.
+ * @return {number} The periodic payment required to pay off the loan.
+ */
+export function getLoanPeriodicPayment(loanCost, periodicInterestRate, periods) {
+    if (periodicInterestRate === 0) {
+        return loanCost / periods;
+    }
+
+    return (loanCost * periodicInterestRate) / (1 - Math.pow(1 + periodicInterestRate, -periods));
+}
