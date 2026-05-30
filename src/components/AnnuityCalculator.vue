@@ -167,30 +167,3 @@ const futureValue = computed(() => {
     </p>
   </section>
 </template>
-
-<style scoped>
-.calculation-summary {
-  margin-top: 2rem;
-  padding: 1.25rem;
-  border: 1px solid var(--pico-muted-border-color);
-  border-radius: var(--pico-border-radius);
-}
-
-.calculation-summary h2,
-.calculation-summary h3 {
-  margin-top: 1rem;
-}
-
-.formula {
-  overflow-x: auto;
-  padding: 1rem;
-  background: var(--pico-card-background-color);
-  border-radius: var(--pico-border-radius);
-  text-align: center;
-}
-
-.final-result {
-  margin-top: 1.5rem;
-  font-size: 1.15rem;
-}
-</style>
