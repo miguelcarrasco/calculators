@@ -35,8 +35,8 @@ const futureValue = computed(() => {
   <p>
     El valor futuro <span v-katex="'F_v'"></span>, del aporte de anualidades <span v-katex="'a'"></span>
     de valor {{ currencyFormatter.format(annuity) }}, a una tasa de interés <span v-katex="'r_i'"></span>
-    de {{ interestRate }}%, compuesta en {{ periods }} periodos será de
-    <span v-katex="'F_v = \\frac{a((1+r_i)^n-1)}{r_i}='"></span> {{ currencyFormatter.format(futureValue) }}
+    de {{ interestRate }}%, durante {{ periods }} periodos será de
+    <span v-katex="'F_v = \\frac{a((1+r_i)^n-1)}{r_i}='"></span> <strong>{{ currencyFormatter.format(futureValue) }}</strong>
   </p>
 </template>
 

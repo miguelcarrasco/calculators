@@ -53,12 +53,12 @@ const futureValue = computed(() => {
 </script>
 
 <template>
-  <h1>Valor futuro de ahorro</h1>
+  <h1>Valor futuro de ahorros</h1>
 
   <form>
     <fieldset>
       <label>
-        Balance inicial:
+        balance inicial (<span v-katex="'b_i'"></span>):
         <input
             type="number"
             step="any"
@@ -69,7 +69,7 @@ const futureValue = computed(() => {
       </label>
 
       <label>
-        Depósitos periódicos:
+        depósito periódico (<span v-katex="'d'"></span>):
         <input
             type="number"
             step="any"
@@ -80,7 +80,7 @@ const futureValue = computed(() => {
       </label>
 
       <label>
-        Tipo de período:
+        tipo de período:
         <select name="periodType" v-model="periodType">
           <option
               v-for="period in periodOptions"
@@ -93,7 +93,7 @@ const futureValue = computed(() => {
       </label>
 
       <label>
-        % tasa de interés anual:
+        % tasa de interés anual (<span v-katex="'r'"></span>):
         <input
             type="number"
             step="any"
@@ -104,7 +104,7 @@ const futureValue = computed(() => {
       </label>
 
       <label>
-        Duración en años:
+        duración en años:
         <input
             type="number"
             step="any"
@@ -117,10 +117,14 @@ const futureValue = computed(() => {
   </form>
 
   <p>
-    El valor futuro del ahorro con un balance inicial de
-    {{ currencyFormatter.format(initialBalance) }}, depósitos periódicos de
+    El valor futuro del ahorro <span v-katex="'F_v'"></span>, con un balance inicial <span v-katex="'b_i'"></span> de
+    {{ currencyFormatter.format(initialBalance) }}, depósitos periódicos <span v-katex="'d'"></span> de
     {{ currencyFormatter.format(periodicDeposit) }} de forma {{ selectedPeriod.label.toLowerCase() }},
-    a una tasa de interés anual de {{ annualInterestRate }}% durante {{ years }} años será de
+    a una tasa de interés anual <span v-katex="'r'"></span> de {{ annualInterestRate }}% durante {{ years }} años,
+    equivalente a {{ paymentsPerYear }} pagos al año y
+    <span v-katex="'n='"></span> {{ years * paymentsPerYear }} períodos en total, con una tasa de interés por período
+    <span v-katex="'r_p'"></span> de {{ annualInterestRate / paymentsPerYear }}%, será de
+    <span v-katex="'F_v = b_i(1+r_p)^n + \\frac{d((1+r_p)^n-1)}{r_p}='"></span>
     <strong>{{ currencyFormatter.format(futureValue) }}</strong>.
   </p>
 </template>
