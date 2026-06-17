@@ -28,6 +28,11 @@ const periodOptions = [
     paymentsPerYear: 12,
   },
   {
+    label: 'Semestral',
+    value: 'semiannual',
+    paymentsPerYear: 2,
+  },
+  {
     label: 'Anual',
     value: 'yearly',
     paymentsPerYear: 1,
